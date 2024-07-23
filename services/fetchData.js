@@ -29,7 +29,7 @@ export const getFilms = async (filmIds) => {
     );
     return response.data.results;
   } catch (error) {
-    console.error("Error fetching films:", error);
+    console.error("Error fetching films", error);
     throw error;
   }
 };
@@ -41,7 +41,7 @@ export const getStarships = async (starshipIds) => {
     );
     return response.data.results;
   } catch (error) {
-    console.error("Error fetching starships:", error);
+    console.error("Error fetching starships", error);
     throw error;
   }
 };

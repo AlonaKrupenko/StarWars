@@ -51,8 +51,8 @@ export default function heroesList() {
       <ul className="my-4 list-none">
         {heroList?.map((hero) => {
           return (
-            <li className="my-1 first:mt-0 last:mb-0">
-              <Link href={`heroesList/${hero.id}`} key={hero.id}>
+            <li className="my-1 first:mt-0 last:mb-0" key={hero.id}>
+              <Link href={`heroesList/${hero.id}`}>
                 <HeroItem data={hero} />
               </Link>
             </li>

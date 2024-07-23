@@ -1,10 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "@xyflow/react/dist/style.css";
 import HeroGraph from "@/components/HeroGraph/HeroGraph";
 import Loader from "@/components/Loader/Loader";
-import ErrorPage from "next/error";
 import { getHero, getFilms, getStarships } from "@/services/fetchData";
 
 const HeroPage = ({ params }) => {
