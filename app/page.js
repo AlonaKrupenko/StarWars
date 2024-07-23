@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <h1 className="text-xl text-center mb-6">
+      <h1 className="text-xl text-center my-4">
         Explore the Star Wars Universe
       </h1>
       <p className="mb-4">

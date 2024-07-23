@@ -26,12 +26,12 @@ const Pagination = ({
   }
 
   return (
-    <ul className="list-style-none flex justify-center	content-center gap-4">
+    <ul className="list-style-none flex justify-center content-center gap-2">
       <li>
         <button
           disabled={currentPage === 1 ? true : false}
           onClick={handlePreviousClick}
-          className="flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-yellow-200 active:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded select-none hover:bg-yellow-200 active:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           Previous
         </button>
@@ -43,8 +43,8 @@ const Pagination = ({
             <button
               className={
                 currentPage === number
-                  ? "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg bg-black text-center align-middle text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  : "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-black transition-all hover:bg-yellow-200 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  ? "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded bg-black text-center align-middle text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  : "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded text-center align-middle font-sans text-xs font-medium uppercase text-black transition-all hover:bg-yellow-200 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               }
               type="button"
               onClick={() => handleNumberClick(number)}
@@ -61,7 +61,7 @@ const Pagination = ({
         <button
           disabled={currentPage === pages ? true : false}
           onClick={handleNextClick}
-          className="cursor-pointer flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="cursor-pointer flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded select-none hover:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           Next
         </button>

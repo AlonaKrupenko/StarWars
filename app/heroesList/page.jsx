@@ -47,14 +47,18 @@ export default function heroesList() {
   return isLoading ? (
     <Loader />
   ) : (
-    <>
-      {heroList?.map((hero) => {
-        return (
-          <Link href={`heroesList/${hero.id}`} key={hero.id}>
-            <HeroItem data={hero} />
-          </Link>
-        );
-      })}
+    <div className="h-[90vh] overflow-auto">
+      <ul className="my-4 list-none">
+        {heroList?.map((hero) => {
+          return (
+            <li className="my-1 first:mt-0 last:mb-0">
+              <Link href={`heroesList/${hero.id}`} key={hero.id}>
+                <HeroItem data={hero} />
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
 
       <Pagination
         pages={Math.ceil(heroesQuantity / heroesPerPage)}
@@ -63,6 +67,6 @@ export default function heroesList() {
         onPreviousClick={handlePreviousClick}
         onNumberClick={handlePageNumberClick}
       />
-    </>
+    </div>
   );
 }

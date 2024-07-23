@@ -7,8 +7,6 @@ import Loader from "@/components/Loader/Loader";
 import ErrorPage from "next/error";
 import { getHero, getFilms, getStarships } from "@/services/fetchData";
 
-//! MAKE LOADER
-
 const HeroPage = ({ params }) => {
   const [heroData, setHeroData] = useState(null);
   const [filmsData, setFilmsData] = useState([]);
@@ -34,13 +32,11 @@ const HeroPage = ({ params }) => {
     fetchHeroData();
   }, [params.heroId]);
 
-  console.log(heroData);
-
   return isLoading ? (
     <Loader />
   ) : (
     <div style={{ height: "100vh", width: "100%" }}>
-      <h3>{heroData?.name}</h3>
+      <h3 className="text-xl my-4">{`Hero name: ${heroData?.name}`}</h3>
       <div style={{ height: "80%", width: "100%" }}>
         <HeroGraph hero={heroData} films={filmsData} starships={shipsData} />
       </div>
