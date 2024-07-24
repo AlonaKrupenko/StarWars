@@ -6,7 +6,7 @@ import { getHeroes } from "@/services/fetchData";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const HeroesList = () => {
+export default function HeroesList() {
   const [fullData, setFullData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [heroesPerPage] = useState(10);
@@ -67,8 +67,4 @@ const HeroesList = () => {
       />
     </div>
   );
-};
-
-HeroesList.displayName = "HeroesList";
-
-export default HeroesList;
+}
