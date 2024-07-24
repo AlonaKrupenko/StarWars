@@ -69,4 +69,6 @@ const HeroesList = () => {
   );
 };
 
+HeroesList.displayName = "HeroesList";
+
 export default HeroesList;
