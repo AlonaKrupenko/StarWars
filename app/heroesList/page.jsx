@@ -3,41 +3,39 @@ import HeroItem from "@/components/HeroItem/HeroItem";
 import Loader from "@/components/Loader/Loader";
 import Pagination from "@/components/Pagination/Pagination";
 import { getHeroes } from "@/services/fetchData";
-import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function heroesList() {
-  const [heroList, setHeroList] = useState([]);
-  const [heroesQuantity, setHeroesQuantity] = useState();
+const HeroesList = () => {
+  const [fullData, setFullData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [heroesPerPage] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
 
-  //! make final page
   const handleNextClick = () => {
-    if (currentPage < Math.ceil(heroesQuantity / heroesPerPage)) {
+    if (fullData.next) {
       setCurrentPage(currentPage + 1);
     }
   };
 
   const handlePreviousClick = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+    if (fullData.previous) setCurrentPage(currentPage - 1);
   };
 
-  const handlePageNumberClick = (num) => {
-    setCurrentPage(num);
+  const handlePageNumberClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
     const fetchHeroes = async () => {
       try {
         const data = await getHeroes(currentPage);
-        setHeroList(data.results);
-        setHeroesQuantity(data.count);
+        setFullData(data);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -49,7 +47,7 @@ export default function heroesList() {
   ) : (
     <div className="h-[90vh] overflow-auto">
       <ul className="my-4 list-none">
-        {heroList?.map((hero) => {
+        {fullData.results?.map((hero) => {
           return (
             <li className="my-1 first:mt-0 last:mb-0" key={hero.id}>
               <Link href={`heroesList/${hero.id}`}>
@@ -61,7 +59,7 @@ export default function heroesList() {
       </ul>
 
       <Pagination
-        pages={Math.ceil(heroesQuantity / heroesPerPage)}
+        pages={Math.ceil(fullData.count / heroesPerPage)}
         currentPage={currentPage}
         onNextClick={handleNextClick}
         onPreviousClick={handlePreviousClick}
@@ -69,4 +67,6 @@ export default function heroesList() {
       />
     </div>
   );
-}
+};
+
+export default HeroesList;

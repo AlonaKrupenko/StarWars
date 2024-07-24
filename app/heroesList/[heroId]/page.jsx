@@ -10,6 +10,7 @@ const HeroPage = ({ params }) => {
   const [filmsData, setFilmsData] = useState([]);
   const [shipsData, setShipsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchHeroData = async () => {
@@ -21,18 +22,25 @@ const HeroPage = ({ params }) => {
         setHeroData(hero);
         setFilmsData(films);
         setShipsData(starships);
-        setIsLoading(false);
       } catch (error) {
-        console.log(error, "Error");
+        setError(error); 
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchHeroData();
   }, [params.heroId]);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error loading data</div>; // Display an error message
+  }
+
+  return (
     <div style={{ height: "100vh", width: "100%" }}>
       <h3 className="text-xl my-4">{`Hero name: ${heroData?.name}`}</h3>
       <div style={{ height: "80%", width: "100%" }}>
