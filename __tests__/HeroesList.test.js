@@ -1,5 +1,3 @@
-/* eslint-disable react/display-name */
-
 import React from "react";
 import {
   render,
@@ -9,7 +7,7 @@ import {
   act,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import HeroesList from "./page.jsx";
+import HeroesList from "../app/heroesList/page.jsx";
 import { getHeroes } from "@/services/fetchData";
 
 jest.mock("@/services/fetchData", () => ({

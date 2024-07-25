@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Pagination from "./Pagination";
+import Pagination from "../components/Pagination/Pagination";
 
 describe("Pagination Component", () => {
   const mockOnNextClick = jest.fn();

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import HeroPage from "./page.jsx";
+import HeroPage from "../app/heroesList/[heroId]/page.jsx";
 import { getHero, getFilms, getStarships } from "@/services/fetchData";
 
 // Mock the necessary functions and components

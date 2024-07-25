@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Header from "./Header";
+import Header from "../components/Header/Header";
 
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
