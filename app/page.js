@@ -1,7 +1,6 @@
-"use client";
 import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <h1 className="text-xl text-center my-4">
@@ -24,4 +23,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

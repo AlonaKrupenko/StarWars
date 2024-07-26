@@ -1,5 +1,3 @@
-"use client";
-
 const HeroItem = ({ data }) => {
   return (
     <div className="bg-gray-300 hover:bg-yellow-200 rounded p-4 transition-all text-m">

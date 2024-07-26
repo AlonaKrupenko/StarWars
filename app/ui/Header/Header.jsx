@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Logo from "./../../public/Star_Wars_Logo.svg";
+import Logo from "@/public/Star_Wars_Logo.svg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,7 +17,7 @@ const Header = () => {
           </div>
         </Link>
         {path === "/" || path === "/heroesList" ? null : (
-          <Link className="h-fit" href={`/heroesList`}>
+          <Link className="h-fit" href={`/heroesList/`}>
             <button className="bg-yellow-300 hover:bg-yellow-400 py-2 px-4 border border-yellow-300 hover:border-yellow-400 rounded">
               GO TO LIST
             </button>

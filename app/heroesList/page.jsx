@@ -1,53 +1,16 @@
-"use client";
-import HeroItem from "@/components/HeroItem/HeroItem";
-import Loader from "@/components/Loader/Loader";
-import Pagination from "@/components/Pagination/Pagination";
-import { getHeroes } from "@/services/fetchData";
+import HeroItem from "@/app/ui/HeroItem/HeroItem";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { fetchHeroesList } from "@/app/lib/data";
+import Pagination from "../ui/Pagination/Pagination";
 
-export default function HeroesList() {
-  const [fullData, setFullData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [heroesPerPage] = useState(10);
-  const [isLoading, setIsLoading] = useState(true);
+const HeroesList = async ({ searchParams }) => {
+  const page = searchParams?.page || 1;
+  const data = await fetchHeroesList(page);
 
-  const handleNextClick = () => {
-    if (fullData.next) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePreviousClick = () => {
-    if (fullData.previous) setCurrentPage(currentPage - 1);
-  };
-
-  const handlePageNumberClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    const fetchHeroes = async () => {
-      try {
-        const data = await getHeroes(currentPage);
-        setFullData(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchHeroes();
-  }, [currentPage]);
-
-  return isLoading ? (
-    <Loader />
-  ) : (
+  return (
     <div className="h-[90vh] overflow-auto">
       <ul className="my-4 list-none">
-        {fullData.results?.map((hero) => {
+        {data?.results?.map((hero) => {
           return (
             <li className="my-1 first:mt-0 last:mb-0" key={hero.id}>
               <Link href={`heroesList/${hero.id}`}>
@@ -57,14 +20,13 @@ export default function HeroesList() {
           );
         })}
       </ul>
-
       <Pagination
-        pages={Math.ceil(fullData.count / heroesPerPage)}
-        currentPage={currentPage}
-        onNextClick={handleNextClick}
-        onPreviousClick={handlePreviousClick}
-        onNumberClick={handlePageNumberClick}
+        hasNext={data.next}
+        hasPrevious={data.previous}
+        totalHeroes={data.count}
       />
     </div>
   );
-}
+};
+
+export default HeroesList;

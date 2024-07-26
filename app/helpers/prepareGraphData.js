@@ -2,14 +2,13 @@ const HORIZONTAL_GAP = 200;
 
 // Helper function to create hero node
 export const createHeroNode = (hero) => {
-  console.log(hero, 'in createHeroNode')
-
   return {
-  id: `hero-${hero.id}`,
-  type: "input",
-  data: { label: hero.name },
-  position: { x: 250, y: 0 },
-}};
+    id: `hero-${hero.id}`,
+    type: "input",
+    data: { label: hero.name },
+    position: { x: 250, y: 0 },
+  };
+};
 
 // Helper function to create film nodes
 export const createFilmNodes = (films) =>
@@ -27,9 +26,7 @@ export const createShipNodes = (starships) =>
     position: { x: HORIZONTAL_GAP * index, y: 300 },
   }));
 
-  export const createNodes = () => {
-    
-  }
+export const createNodes = () => {};
 
 // Helper function to create edges between hero and films
 export const createFilmEdges = (hero, films) =>
@@ -52,3 +49,18 @@ export const createShipEdges = (films, starships) =>
         animated: true,
       }))
   );
+
+// Combined function to create nodes and edges
+export const createGraphData = (hero, films, starships) => {
+  const heroNode = createHeroNode(hero);
+  const filmNodes = createFilmNodes(films);
+  const starshipNodes = createShipNodes(starships);
+
+  const filmEdges = createFilmEdges(hero, films);
+  const shipEdges = createShipEdges(films, starships);
+
+  const nodes = [heroNode, ...filmNodes, ...starshipNodes];
+  const edges = [...filmEdges, ...shipEdges];
+
+  return { nodes, edges };
+};

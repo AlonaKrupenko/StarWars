@@ -1,82 +1,77 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Pagination from "../components/Pagination/Pagination";
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Pagination from '@/app/ui/Pagination/Pagination'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
-describe("Pagination Component", () => {
-  const mockOnNextClick = jest.fn();
-  const mockOnPreviousClick = jest.fn();
-  const mockOnNumberClick = jest.fn();
 
-  const renderComponent = (currentPage, pages) => {
-    render(
-      <Pagination
-        pages={pages}
-        currentPage={currentPage}
-        onNextClick={mockOnNextClick}
-        onPreviousClick={mockOnPreviousClick}
-        onNumberClick={mockOnNumberClick}
-      />
-    );
-  };
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("renders pagination buttons correctly", () => {
-    renderComponent(1, 5);
-
-    expect(screen.getByText("Previous")).toBeInTheDocument();
-    expect(screen.getByText("Next")).toBeInTheDocument();
-    for (let i = 1; i <= 5; i++) {
-      expect(screen.getByText(i)).toBeInTheDocument();
-    }
-  });
-
-  it("disables the Previous button on the first page", () => {
-    renderComponent(1, 5);
-
-    expect(screen.getByText("Previous")).toBeDisabled();
-  });
-
-  it("disables the Next button on the last page", () => {
-    renderComponent(5, 5);
-
-    expect(screen.getByText("Next")).toBeDisabled();
-  });
-
-  it("calls onPreviousClick when the Previous button is clicked", () => {
-    renderComponent(2, 5);
-
-    const previousButton = screen.getByText("Previous");
-    fireEvent.click(previousButton);
-
-    expect(mockOnPreviousClick).toHaveBeenCalled();
-  });
-
-  it("calls onNextClick when the Next button is clicked", () => {
-    renderComponent(2, 5);
-
-    const nextButton = screen.getByText("Next");
-    fireEvent.click(nextButton);
-
-    expect(mockOnNextClick).toHaveBeenCalled();
-  });
-
-  it("calls onNumberClick when a page number is clicked", () => {
-    renderComponent(2, 5);
-
-    const pageNumberButton = screen.getByText("3");
-    fireEvent.click(pageNumberButton);
-
-    expect(mockOnNumberClick).toHaveBeenCalledWith(3);
-  });
-
-  it('highlights the current page number', () => {
-    renderComponent(2, 5);
+// Mock the next/navigation hooks
+jest.mock('next/navigation', () => ({
+    useRouter: jest.fn(),
+    useSearchParams: jest.fn(),
+    usePathname: jest.fn(),
+  }));
   
-    const currentPageButton = screen.getByRole('button', { name: '2' });
-    expect(currentPageButton).toHaveClass('bg-black text-white');
+  describe('Pagination Component', () => {
+    let replace;
+    let mockSearchParams;
+  
+    beforeEach(() => {
+      replace = jest.fn();
+      mockSearchParams = new URLSearchParams();
+  
+      // Mock implementations of the hooks
+      useRouter.mockReturnValue({ replace });
+      useSearchParams.mockReturnValue(mockSearchParams);
+      usePathname.mockReturnValue('/current-page');
+    });
+  
+    it('renders pagination buttons correctly', () => {
+      render(<Pagination hasNext={true} hasPrevious={true} totalHeroes={30} />);
+  
+      expect(screen.getByText('Previous')).toBeInTheDocument();
+      expect(screen.getByText('Next')).toBeInTheDocument();
+  
+      for (let i = 1; i <= 3; i++) {
+        expect(screen.getByText(i.toString())).toBeInTheDocument();
+      }
+    });
+  
+    it('changes page when clicking Next button', () => {
+      render(<Pagination hasNext={true} hasPrevious={true} totalHeroes={30} />);
+  
+      fireEvent.click(screen.getByText('Next'));
+  
+      expect(replace).toHaveBeenCalledWith('/current-page?page=2');
+    });
+  
+    it('changes page when clicking Previous button', () => {
+      mockSearchParams.set('page', '2');
+  
+      render(<Pagination hasNext={true} hasPrevious={true} totalHeroes={30} />);
+  
+      fireEvent.click(screen.getByText('Previous'));
+  
+      expect(replace).toHaveBeenCalledWith('/current-page?page=1');
+    });
+  
+    it('changes page when clicking on page number', () => {
+      render(<Pagination hasNext={true} hasPrevious={true} totalHeroes={30} />);
+  
+      fireEvent.click(screen.getByText('2'));
+  
+      expect(replace).toHaveBeenCalledWith('/current-page?page=2');
+    });
+  
+    it('does not render Previous button when hasPrevious is false', () => {
+      render(<Pagination hasNext={true} hasPrevious={false} totalHeroes={30} />);
+  
+      expect(screen.getByText('Previous')).toBeDisabled();
+    });
+  
+    it('does not render Next button when hasNext is false', () => {
+      render(<Pagination hasNext={false} hasPrevious={true} totalHeroes={30} />);
+  
+      expect(screen.getByText('Next')).toBeDisabled();
+    });
   });
-});
