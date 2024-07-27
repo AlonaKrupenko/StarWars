@@ -2,6 +2,8 @@ import "@xyflow/react/dist/style.css";
 import { fetchGraphData, fetchHero } from "@/app/lib/data";
 import { createGraphData } from "@/app/helpers/prepareGraphData";
 import HeroGraph from "@/app/ui/HeroGraph/HeroGraph";
+import { Suspense } from "react";
+import Loader from "@/app/loading";
 
 const HeroPage = async ({ params }) => {
   const { heroId } = params;
