@@ -19,11 +19,11 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
   const handleChangePage = (type, number) => {
     switch (type) {
       case "previous":
-        params.set("page", parseInt(page) - 1);
+        params.set("page", parseInt(currentPage) - 1);
         setCurrentPage((prev) => prev - 1);
         break;
       case "next":
-        params.set("page", parseInt(page) + 1);
+        params.set("page", parseInt(currentPage) + 1);
         setCurrentPage((prev) => prev + 1);
         break;
       case "number":
@@ -46,7 +46,7 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
 
   return (
     <>
-      <ul className="list-style-none flex justify-center content-center gap-2">
+      <ul className="list-style-none flex justify-center content-center flex-wrap gap-2">
         <li>
           <button
             disabled={!hasPrevious}
@@ -62,7 +62,7 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
             <li key={number}>
               <button
                 className={
-                  Number(page) === number
+                  Number(currentPage) === number
                     ? "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded bg-black text-center align-middle text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     : "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded text-center align-middle font-sans text-xs font-medium uppercase text-black transition-all hover:bg-yellow-200 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 }
