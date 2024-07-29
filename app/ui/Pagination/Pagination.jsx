@@ -5,6 +5,14 @@ import { useState, useTransition } from "react";
 
 const PAGE_SIZE = 10;
 
+/**
+ * Pagination component for navigating through a list of heroes.
+ * @param {Object} props - The component props.
+ * @param {boolean} props.hasNext - Indicates if there is a next page.
+ * @param {boolean} props.hasPrevious - Indicates if there is a previous page.
+ * @param {number} props.totalHeroes - The total number of heroes.
+ * @returns {JSX.Element} The pagination component.
+ */
 const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();

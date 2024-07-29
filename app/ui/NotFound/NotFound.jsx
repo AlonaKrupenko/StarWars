@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-const NotFound = ({ error }) => {
+/**
+ * Component that displays a "Not Found" message with a link to the heroes list.
+ * @returns {JSX.Element} The rendered not found component.
+ */
+const NotFound = () => {
   return (
     <div className="global">
       <h2 className="text-center text-xl my-4">Not Found</h2>

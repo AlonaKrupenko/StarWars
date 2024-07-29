@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+/**
+ * Component that displays the home page with an introduction and a link to the heroes list.
+ * @returns {JSX.Element} The rendered home page component.
+ */
 const Home = () => {
   return (
     <>

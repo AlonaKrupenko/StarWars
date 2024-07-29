@@ -4,6 +4,13 @@ import { createGraphData } from "@/app/helpers/prepareGraphData";
 import HeroGraph from "@/app/ui/HeroGraph/HeroGraph";
 import NotFound from "@/app/ui/NotFound/NotFound";
 
+/**
+ * Component that fetches and displays hero details and their related graph data.
+ * @param {Object} props - The component props.
+ * @param {Object} props.params - The route parameters.
+ * @param {number} props.params.heroId - The ID of the hero to fetch.
+ * @returns {JSX.Element} The rendered hero page component.
+ */
 const HeroPage = async ({ params }) => {
   const { heroId } = params;
 

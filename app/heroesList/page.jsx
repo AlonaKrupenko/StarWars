@@ -4,6 +4,13 @@ import { fetchHeroesList } from "@/app/lib/data";
 import Pagination from "../ui/Pagination/Pagination";
 import NotFound from "@/app/ui/NotFound/NotFound";
 
+/**
+ * Component that fetches and displays a list of heroes with pagination.
+ * @param {Object} props - The component props.
+ * @param {Object} [props.searchParams] - The search parameters from the URL.
+ * @param {number} [props.searchParams.page=1] - The current page number.
+ * @returns {JSX.Element} The rendered heroes list component.
+ */
 const HeroesList = async ({ searchParams = {} }) => {
   const page = searchParams?.page || 1;
   try {

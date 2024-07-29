@@ -5,6 +5,10 @@ import Logo from "@/public/Star_Wars_Logo.svg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+/**
+ * Header component that displays the logo and a navigation button based on the current path.
+ * @returns {JSX.Element} The rendered header component.
+ */
 const Header = () => {
   const path = usePathname();
 
