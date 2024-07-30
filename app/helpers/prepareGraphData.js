@@ -25,7 +25,8 @@ export const createHeroNode = (hero) => {
  * @param {string} film.title - The title of the film.
  * @param {number} film.episode_id - The episode number of the film.
  * @returns {Array} An array of film node objects, each with id, label, and position.
- */export const createFilmNodes = (films) =>
+ */
+export const createFilmNodes = (films) =>
   films.map((film, index) => ({
     id: `film-${film.id}`,
     data: { label: `Film: ${film.title}; Episode: ${film.episode_id}` },

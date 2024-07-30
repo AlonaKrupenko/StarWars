@@ -15,13 +15,13 @@ const Home = () => {
         Star Wars universe.
       </p>
       <p className="mb-6">
-        Click on any hero to view detailed information about them, including a
-        graph showing the films they appeared in and the starships they piloted.
+        Click on any hero to view a graph representing the films they appeared
+        and the starships they piloted.
       </p>
       <div className="flex items-center justify-center">
-        <Link href={`heroesList`}>
+        <Link href={`heroesList`} scroll={false}>
           <button className="text-center bg-yellow-300 hover:bg-yellow-400 py-2 px-4 border border-yellow-300 hover:border-yellow-400 rounded">
-            GO TO LIST
+            Go to heroes list
           </button>
         </Link>
       </div>

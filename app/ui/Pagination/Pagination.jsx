@@ -4,6 +4,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 
 const PAGE_SIZE = 10;
+const NEXT_PAGE = "next";
+const PREVIOUS_PAGE = "previous";
+const PAGE_NUMBER = "number";
+const PAGE = "page";
 
 /**
  * Pagination component for navigating through a list of heroes.
@@ -18,24 +22,31 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const page = searchParams.get("page") || 1;
+  const page = searchParams.get(PAGE) || 1;
   const params = new URLSearchParams(searchParams);
 
   const [isPending, startTransition] = useTransition();
   const [currentPage, setCurrentPage] = useState(parseInt(page));
 
+  const nextPreviousButtonClasses =
+    "cursor-pointer flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded select-none hover:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none";
+  const activeNumbersButtonClasses =
+    "bg-black relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded text-center align-middle text-xs font-medium uppercase text-white transition-all";
+  const numbersButtonClasses =
+    "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded text-center align-middle text-xs font-medium uppercase text-black transition-all hover:bg-yellow-200 ";
+
   const handleChangePage = (type, number) => {
     switch (type) {
-      case "previous":
-        params.set("page", parseInt(currentPage) - 1);
+      case PREVIOUS_PAGE:
+        params.set(PAGE, parseInt(currentPage) - 1);
         setCurrentPage((prev) => prev - 1);
         break;
-      case "next":
-        params.set("page", parseInt(currentPage) + 1);
+      case NEXT_PAGE:
+        params.set(PAGE, parseInt(currentPage) + 1);
         setCurrentPage((prev) => prev + 1);
         break;
-      case "number":
-        params.set("page", parseInt(number));
+      case PAGE_NUMBER:
+        params.set(PAGE, parseInt(number));
         setCurrentPage(number);
         break;
       default:
@@ -58,8 +69,8 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
         <li>
           <button
             disabled={!hasPrevious}
-            onClick={() => handleChangePage("previous")}
-            className="flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded select-none hover:bg-yellow-200 active:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={() => handleChangePage(PREVIOUS_PAGE)}
+            className={nextPreviousButtonClasses}
           >
             Previous
           </button>
@@ -71,11 +82,11 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
               <button
                 className={
                   Number(currentPage) === number
-                    ? "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded bg-black text-center align-middle text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    : "relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded text-center align-middle font-sans text-xs font-medium uppercase text-black transition-all hover:bg-yellow-200 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    ? activeNumbersButtonClasses
+                    : numbersButtonClasses
                 }
                 type="button"
-                onClick={() => handleChangePage("number", number)}
+                onClick={() => handleChangePage(PAGE_NUMBER, number)}
               >
                 <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                   {number}
@@ -88,8 +99,8 @@ const Pagination = ({ hasNext, hasPrevious, totalHeroes }) => {
         <li>
           <button
             disabled={!hasNext}
-            onClick={() => handleChangePage("next")}
-            className="cursor-pointer flex items-center gap-2 px-6 py-3 text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded select-none hover:bg-yellow-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={() => handleChangePage(NEXT_PAGE)}
+            className={nextPreviousButtonClasses}
           >
             Next
           </button>

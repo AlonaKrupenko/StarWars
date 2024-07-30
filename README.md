@@ -6,13 +6,13 @@ Welcome to the Star Wars App! This project is a Next.js application that provide
 
 - Server-Side Rendering: Render pages with data fetched from the server.
 - Client-Side Rendering: Interactive components rendered on the client side.
-- Graph Visualization: Display relationships between heroes, films, and starships.
+- Graph Visualization: Display relations between heroes, films, and starships.
 - Pagination: Navigate through lists of heroes with pagination controls.
 - Error Handling: Display error messages when data fetch fails.
 
 # Installation
 
-To get started with this project, follow these steps:
+To get started with the project, follow these steps:
 
 1. Clone the repository:
 
@@ -25,7 +25,7 @@ To get started with this project, follow these steps:
 
 # Usage
 
-1. To start the app locally:
+1. To start the app locally (localhost:3000 by default)
 
 - npm run dev
 

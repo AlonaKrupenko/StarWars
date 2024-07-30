@@ -17,23 +17,25 @@ const HeroesList = async ({ searchParams = {} }) => {
     const data = await fetchHeroesList(page);
 
     return (
-      <div className="h-[90vh] overflow-auto">
+      <div className="h-[90vh] overflow-auto flex flex-col justify-between">
         <ul className="my-4 list-none">
           {data?.results?.map((hero) => {
             return (
               <li className="my-1 first:mt-0 last:mb-0" key={hero.id}>
-                <Link href={`heroesList/${hero.id}`}>
+                <Link href={`heroesList/${hero.id}`} scroll={false} >
                   <HeroItem data={hero} />
                 </Link>
               </li>
             );
           })}
         </ul>
-        <Pagination
-          hasNext={data.next}
-          hasPrevious={data.previous}
-          totalHeroes={data.count}
-        />
+        <div className="mb-4">
+          <Pagination
+            hasNext={data.next}
+            hasPrevious={data.previous}
+            totalHeroes={data.count}
+          />
+        </div>
       </div>
     );
   } catch {
